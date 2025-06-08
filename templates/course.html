@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">
+            {% if course_id == 1 %}
+                Python Programming
+            {% elif course_id == 2 %}
+                Database Management
+            {% else %}
+                Web Development
+            {% endif %}
+        </h1>
+        <p class="text-gray-600 mt-2">Master the fundamentals and advance your skills</p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <h2 class="text-xl font-semibold mb-4">Course Content</h2>
+        
+        <div class="space-y-4">
+            <div class="border-l-4 border-blue-600 pl-4">
+                <h3 class="font-medium">Module 1: Introduction</h3>
+                <p class="text-gray-600 mt-1">Learn the basics and get started with your journey</p>
+            </div>
+            
+            <div class="border-l-4 border-blue-600 pl-4">
+                <h3 class="font-medium">Module 2: Core Concepts</h3>
+                <p class="text-gray-600 mt-1">Dive deep into the fundamental concepts</p>
+            </div>
+            
+            <div class="border-l-4 border-blue-600 pl-4">
+                <h3 class="font-medium">Module 3: Advanced Topics</h3>
+                <p class="text-gray-600 mt-1">Explore advanced concepts and best practices</p>
+            </div>
+        </div>
+    </div>
+
+    {% if grades %}
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <h2 class="text-xl font-semibold mb-4">Quiz History</h2>
+        <div class="space-y-4">
+            {% for grade in grades %}
+            <div class="border-b border-gray-200 pb-4 last:border-b-0 last:pb-0">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-lg font-semibold text-blue-600">{{ grade.score }}/{{ grade.total_questions }}</p>
+                        <p class="text-sm text-gray-500">{{ grade.date_taken.strftime('%Y-%m-%d %H:%M') }}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-600">Score: {{ (grade.score / grade.total_questions * 100)|round|int }}%</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-4">Ready to Test Your Knowledge?</h2>
+        <p class="text-gray-600 mb-6">
+            Take our comprehensive quiz to assess your understanding of the course material.
+        </p>
+        <a href="{{ url_for('start_quiz', course=('python' if course_id == 1 else 'database' if course_id == 2 else 'web')) }}" 
+           class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition duration-300">
+            Start Quiz
+        </a>
+    </div>
+</div>
+{% endblock %} 

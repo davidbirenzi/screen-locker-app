@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Welcome, {{ current_user.username }}!</h1>
+    <p class="text-gray-600 mt-2">Track your progress and continue learning</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Course Card 1 -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover">
+        <div class="p-6">
+            <div class="text-blue-600 text-2xl mb-4">
+                <i class="fas fa-laptop-code"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Python Programming</h3>
+            <p class="text-gray-600 mb-4">
+                Learn Python programming from basics to advanced concepts.
+            </p>
+            {% if python_grade %}
+            <div class="mb-4 p-3 bg-gray-50 rounded-md">
+                <p class="text-sm text-gray-600">Latest Quiz Score:</p>
+                <p class="text-lg font-semibold text-blue-600">{{ python_grade.score }}/{{ python_grade.total_questions }}</p>
+                <p class="text-xs text-gray-500">{{ python_grade.date_taken.strftime('%Y-%m-%d %H:%M') }}</p>
+            </div>
+            {% endif %}
+            <div class="flex justify-between items-center">
+                <a href="{{ url_for('course', course_id=1) }}" class="text-blue-600 hover:text-blue-700 font-medium">
+                    Continue Learning
+                </a>
+                <a href="{{ url_for('start_quiz', course='python') }}" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700">
+                    Take Quiz
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Card 2 -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover">
+        <div class="p-6">
+            <div class="text-blue-600 text-2xl mb-4">
+                <i class="fas fa-database"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Database Management</h3>
+            <p class="text-gray-600 mb-4">
+                Master database concepts and SQL programming.
+            </p>
+            {% if database_grade %}
+            <div class="mb-4 p-3 bg-gray-50 rounded-md">
+                <p class="text-sm text-gray-600">Latest Quiz Score:</p>
+                <p class="text-lg font-semibold text-blue-600">{{ database_grade.score }}/{{ database_grade.total_questions }}</p>
+                <p class="text-xs text-gray-500">{{ database_grade.date_taken.strftime('%Y-%m-%d %H:%M') }}</p>
+            </div>
+            {% endif %}
+            <div class="flex justify-between items-center">
+                <a href="{{ url_for('course', course_id=2) }}" class="text-blue-600 hover:text-blue-700 font-medium">
+                    Continue Learning
+                </a>
+                <a href="{{ url_for('start_quiz', course='database') }}" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700">
+                    Take Quiz
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Card 3 -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover">
+        <div class="p-6">
+            <div class="text-blue-600 text-2xl mb-4">
+                <i class="fas fa-network-wired"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Web Development</h3>
+            <p class="text-gray-600 mb-4">
+                Learn modern web development with HTML, CSS, and JavaScript.
+            </p>
+            {% if web_grade %}
+            <div class="mb-4 p-3 bg-gray-50 rounded-md">
+                <p class="text-sm text-gray-600">Latest Quiz Score:</p>
+                <p class="text-lg font-semibold text-blue-600">{{ web_grade.score }}/{{ web_grade.total_questions }}</p>
+                <p class="text-xs text-gray-500">{{ web_grade.date_taken.strftime('%Y-%m-%d %H:%M') }}</p>
+            </div>
+            {% endif %}
+            <div class="flex justify-between items-center">
+                <a href="{{ url_for('course', course_id=3) }}" class="text-blue-600 hover:text-blue-700 font-medium">
+                    Continue Learning
+                </a>
+                <a href="{{ url_for('start_quiz', course='web') }}" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700">
+                    Take Quiz
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-8 bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-xl font-semibold mb-4">Your Progress</h2>
+    <div class="w-full bg-gray-200 rounded-full h-4">
+        <div class="bg-blue-600 h-4 rounded-full" style="width: {{ current_user.progress }}%"></div>
+    </div>
+    <p class="text-gray-600 mt-2">Overall Progress: {{ current_user.progress }}%</p>
+</div>
+{% endblock %} 
